@@ -2,7 +2,10 @@
  * AppController.j
  * DrawTogether
  *
- * Created by Saikat Chakrabarti on April 20, 2010.
+ * Created by Saikat Chakrabarti on April 22, 2010.
+ *
+ * See LICENSE file for license information.
+ * 
  */
 
 @import <Foundation/CPObject.j>

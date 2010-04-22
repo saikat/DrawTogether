@@ -1,9 +1,11 @@
 /*
- * AppController.j
+ * main.j
  * DrawTogether
  *
- * Created by You on April 20, 2010.
- * Copyright 2010, Your Company All rights reserved.
+ * Created by Saikat Chakrabarti on April 22, 2010.
+ *
+ * See LICENSE file for license information.
+ * 
  */
 
 @import <Foundation/Foundation.j>

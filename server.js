@@ -1,7 +1,17 @@
+/*
+ * server.js
+ * DrawTogether
+ *
+ * Created by Saikat Chakrabarti on April 22, 2010.
+ *
+ * See LICENSE file for license information.
+ * 
+ */
+
 var http = require('http'), 
     url = require('url'),
     fs = require('fs'),
-    io = require('./lib/socket.io'),
+    io = require('./lib/socket.io/socket.io'),
     sys = require('sys'),
     paperboy = require('./lib/paperboy/paperboy'),
     

@@ -1,3 +1,13 @@
+/*
+ * Canvas.j
+ * DrawTogether
+ *
+ * Created by Saikat Chakrabarti on April 22, 2010.
+ *
+ * See LICENSE file for license information.
+ * 
+ */
+
 @import "SCSocket.j"
 @import "Widget.j"
 

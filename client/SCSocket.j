@@ -1,3 +1,13 @@
+/*
+ * SCSocket.j
+ * DrawTogether
+ *
+ * Created by Saikat Chakrabarti on April 22, 2010.
+ *
+ * See LICENSE file for license information.
+ * 
+ */
+
 @import <Foundation/CPObject.j>
 @import "socket.io.js"
 

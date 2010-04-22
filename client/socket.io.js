@@ -7,6 +7,8 @@
  * @copyright Copyright (c) 2009 RosePad <dev@rosepad.com>
  */
 
+/* This file is from the Socket.IO project located at http://github.com/LearnBoost/Socket.IO */
+
 this.io = {
 	version: '0.1.7',
 
