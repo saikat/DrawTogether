@@ -13,6 +13,8 @@ var SharedSocket = nil;
 @implementation Widget : CPView
 { 
     CPColor drawingColor;
+    CGPoint dragStart;
+    CGPoint startingOrigin;
 }
 
 - (id)initWithFrame:(CGRect)aRect
@@ -45,7 +47,21 @@ var SharedSocket = nil;
 
 - (void)mouseDown:(CPEvent)anEvent
 {
-    [self delete];
+    if ([anEvent clickCount] === 2)
+        [self delete];
+    else
+    {
+        dragStart = [anEvent locationInWindow];
+        startingOrigin = [self frame].origin;
+    }
+}
+
+- (void)mouseDragged:(CPEvent)anEvent
+{
+    var draggedToPoint = [anEvent locationInWindow],
+        newOrigin = CGPointMake(startingOrigin.x + (draggedToPoint.x - dragStart.x),
+                                startingOrigin.y + (draggedToPoint.y - dragStart.y));
+    [self setFrameOrigin:newOrigin];
 }
 
 - (JSObject)toJSON
