@@ -1,7 +1,7 @@
 Introduction
 ============
 
-This application makes use of [Socket.IO](http://github.com/RosePad/Socket.IO) to create a sample collaborative drawing app.  Multiple users can draw rectangles and circles and all other users using the app see the changes.  Socket.IO automatically allows the application to use WebSockets when it can, falling back to other Comet methods for other browsers.  To read more about Socket.IO, check out the [client](http://github.com/rosepad/socket.io) and [server](http://github.com/rosepad/socket.io-node).
+This application makes use of [Socket.IO](http://github.com/RosePad/Socket.IO) and [Cappuccino](http://github.com/280north/cappuccino) to create a sample collaborative drawing app.  Multiple users can draw rectangles and circles and all other users using the app see the changes.  Socket.IO automatically allows the application to use WebSockets when it can, falling back to other Comet methods for other browsers.  To read more about Socket.IO, check out the [client](http://github.com/rosepad/socket.io) and [server](http://github.com/rosepad/socket.io-node).
 
 Requirements
 ============
