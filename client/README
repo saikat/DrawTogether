@@ -1,1 +1,0 @@
-Right now, all you can do is draw and delete rectangles (click and drag to draw, click the rectangle you drew to delete it).  I chose to do an app that isn't just a simple chat server so I can mess around with doing conflict resolution on the backend (using either operational transformations or something).
