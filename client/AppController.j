@@ -67,10 +67,11 @@ var SharedSocket = nil;
 
 - (void)drawRect:(CGRect)aRect
 {
-    var context = [[CPGraphicsContext currentContext] graphicsPort]; 
+    var context = [[CPGraphicsContext currentContext] graphicsPort],
+        newRect = CPRectInset(aRect, 1.0, 1.0);
     CGContextSetLineWidth(context, 2.0);
     CGContextSetStrokeColor(context, drawingColor);
-    CGContextStrokeEllipseInRect(context, aRect);
+    CGContextStrokeEllipseInRect(context, newRect);
 }
 @end
 
@@ -82,7 +83,7 @@ var SharedSocket = nil;
     CGContextSaveGState(context);
     CGContextSetStrokeColor(context,drawingColor);
     CGContextSetLineWidth(context, 2.0);
-    CGContextStrokeRect(context, aRect);
+    CGContextStrokeRect(context, CPRectInset(aRect, 1.0, 1.0));
     CGContextRestoreGState(context);
 }
 @end
@@ -90,7 +91,18 @@ var SharedSocket = nil;
 @implementation Canvas : CPView
 {
     CGPoint dragStart;
-    RectWidget currentWidget;
+    Widget currentWidget;
+    Class drawClass;
+}
+
+- (id)initWithFrame:(CGRect)aRect
+{
+    self = [super initWithFrame:aRect];
+    if (self)
+    {
+        drawClass = RectWidget;
+    }
+    return self;
 }
 
 - (void)addWidget:(Widget)aWidget
@@ -98,12 +110,25 @@ var SharedSocket = nil;
     [self addSubview:aWidget];
 }
 
+- (BOOL)acceptsFirstResponder
+{
+    return YES;
+}
+
+- (void)keyDown:(CPEvent)anEvent
+{
+    if ([anEvent characters] == "c")
+        drawClass = CircleWidget;
+    else if ([anEvent characters] == "r")
+        drawClass = RectWidget;
+}
+
 - (void)mouseDown:(CPEvent)anEvent
 {
     dragStart = [anEvent locationInWindow];
-    var rectWidget = [[RectWidget alloc] initWithFrame:CGRectMake(dragStart.x, dragStart.y, 0, 0)];
-    currentWidget = rectWidget;
-    [self addSubview:rectWidget];
+    var widget = [[drawClass alloc] initWithFrame:CGRectMake(dragStart.x, dragStart.y, 0, 0)];
+    currentWidget = widget;
+    [self addSubview:widget];
 }
 
 - (void)mouseDragged:(CPEvent)anEvent
@@ -214,8 +239,8 @@ var SharedSocket = nil;
     else if (data.action === 'add')
     {
         [canvas addWidget:[[CPClassFromString(data.widget.type) alloc] initWithFrame:data.widget.frame]];
-        [canvas setNeedsDisplay:YES];
     }
+    [[CPRunLoop currentRunLoop] limitDateForMode:CPDefaultRunLoopMode];
 }
 @end
 
