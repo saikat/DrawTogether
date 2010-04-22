@@ -31,15 +31,21 @@
     if (!data.action)
         return;
 
-    if (data.action === 'delete')
+    if (data.action === 'fetch')
+    {
+        [[SCSocket sharedSocket] sendMessage:[canvas toJSON]];
+    }
+    else if (data.action === 'initialize')
+    {
+        [canvas refreshFromJSON:data.widgets];
+    }
+    else if (data.action === 'delete')
     {
         var widgetToDelete = [canvas widgetByJSObject:data.widget];
         [widgetToDelete delete];
     }
     else if (data.action === 'add')
-    {
         [canvas addWidget:[[CPClassFromString(data.widget.type) alloc] initWithFrame:data.widget.frame]];
-    }
 }
 @end
 

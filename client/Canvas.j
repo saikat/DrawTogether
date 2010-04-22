@@ -73,6 +73,33 @@
     return nil;
 }
 
+- (void)refreshFromJSON:(JSObject)widgets
+{
+    var count = [[self subviews] count];
+    while (count--)
+        [[self subviews][count] removeFromSuperview];
+
+    count = widgets.length;
+    for (var i = 0; i < count; ++i) 
+    {
+        [self addWidget:[[CPClassFromString(widgets[i].type) alloc] initWithFrame:widgets[i].frame]];
+    }
+}
+
+- (JSObject)toJSON
+{
+    var widgets = [self subviews],
+        count = [widgets count],
+        allWidgets = [];
+    
+    while(count--)
+    {
+        allWidgets.unshift([widgets[count] toJSON]);
+    }
+    
+    return {'action' : 'initialize', 'widgets' : allWidgets}
+}
+
 - (void)mouseUp:(CPEvent)anEvent
 {
     if (currentWidget)

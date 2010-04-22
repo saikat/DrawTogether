@@ -18,19 +18,33 @@ var http = require('http'),
     
     var json = JSON.stringify;
 
-    var listener = io.listen(server, {
-	
-	onClientConnect: function(client){
-	    client.broadcast(json({ announcement: client.sessionId + ' connected' }));
+    var listener = io.listen(server, {	
+	onClientDisconnect: function(client)
+	{
 	},
 	
-	onClientDisconnect: function(client){
-	    client.broadcast(json({ announcement: client.sessionId + ' disconnected' }));
-	},
-	
-	onClientMessage: function(message, client){
+	onClientMessage: function(message, client)
+	{
 	    client.broadcast(message);
 	}
     });
 
+    listener.addListener('clientConnect', function(client)
+			 {
+			     // This code to sync up clients when a new client connects clearly
+			     // doesn't actually work that well.  I need to deal with client
+			     // synchronization and merging - this is the hard part =)
+			     if (this.clients.length > 0)
+			     {
+				 var count = this.clients.length;
+				 while (count--)
+				 {
+				     if (this.clients[count] != null && this.clients[count] != client)
+				     {
+					 this.clients[count].send(json({ action: 'fetch' }));
+					 return;
+				     }
+				 }
+			     }
+			 });
     listener.options.transports = ['websocket', 'server-events', 'htmlfile', 'xhr-multipart', 'xhr-polling'];
