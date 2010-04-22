@@ -16,14 +16,11 @@ var http = require('http'),
 
     server.listen(8080);
     
-    // socket.io, I choose you
-    // simplest chat application evar
-    var buffer = [], json = JSON.stringify;
+    var json = JSON.stringify;
 
     var listener = io.listen(server, {
 	
 	onClientConnect: function(client){
-	    client.send(json({ buffer: buffer }));
 	    client.broadcast(json({ announcement: client.sessionId + ' connected' }));
 	},
 	

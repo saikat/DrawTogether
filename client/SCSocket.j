@@ -25,13 +25,13 @@ var SharedSocket = nil;
 {
     delegate = aDelegate;
     if ([delegate respondsToSelector:@selector(socketDidConnect:)])
-        socket.addEvent('connect', function() {[delegate socketDidConnect:self];});
+        socket.addEvent('connect', function() {[delegate socketDidConnect:self]; [[CPRunLoop currentRunLoop] limitDateForMode:CPDefaultRunLoopMode];});
     if ([delegate respondsToSelector:@selector(socketDidClose:)])
-        socket.addEvent('close', function() {[delegate socketDidClose:self];});
+        socket.addEvent('close', function() {[delegate socketDidClose:self]; [[CPRunLoop currentRunLoop] limitDateForMode:CPDefaultRunLoopMode];});
     if ([delegate respondsToSelector:@selector(socketDidDisconnect:)])
-        socket.addEvent('disconnect', function() {[delegate socketDidDisconnect:self];});
+        socket.addEvent('disconnect', function() {[delegate socketDidDisconnect:self];[[CPRunLoop currentRunLoop] limitDateForMode:CPDefaultRunLoopMode];});
     if ([delegate respondsToSelector:@selector(socket:didReceiveMessage:)])
-        socket.addEvent('message', function(message) {[delegate socket:self didReceiveMessage:message];});
+        socket.addEvent('message', function(message) {[delegate socket:self didReceiveMessage:message]; [[CPRunLoop currentRunLoop] limitDateForMode:CPDefaultRunLoopMode];});
 }
 
 - (void)sendMessage:(JSObject)jsonData

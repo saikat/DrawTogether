@@ -40,7 +40,6 @@
     {
         [canvas addWidget:[[CPClassFromString(data.widget.type) alloc] initWithFrame:data.widget.frame]];
     }
-    [[CPRunLoop currentRunLoop] limitDateForMode:CPDefaultRunLoopMode];
 }
 @end
 
