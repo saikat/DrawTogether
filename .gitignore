@@ -2,4 +2,3 @@
 *.atlasproj
 .DS_Store
 Build/
-Frameworks/

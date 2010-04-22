@@ -6,7 +6,7 @@ This application makes use of [Socket.IO](http://github.com/RosePad/Socket.IO) a
 Requirements
 ============
 
-To run this example, you need to install [Socket.IO-node](http://github.com/rosepad/socket.io-node), which depends on [Node.js](http://github.com/ry/node).  Socket.IO-node currently requires you to patch your Node installation - this should hopefully go away in the future.
+To run this example, you need to install [Socket.IO-node](http://github.com/rosepad/socket.io-node), which depends on [Node.js](http://github.com/ry/node).  Socket.IO-node currently requires you to patch your Node installation - this should hopefully go away in the future.  
 
 Instructions to Run
 ===================
