@@ -54,6 +54,14 @@
     [self setFrameOrigin:newOrigin];
 }
 
+- (void)mouseUp:(CPEvent)anEvent
+{
+    if (!CGPointEqualToPoint(startingOrigin, [self frame].origin))
+        [[SCSocket sharedSocket] sendMessage:{'action' : 'move',
+                    'widget' : [self toJSON],
+                    'startOrigin' : startingOrigin}];
+}
+
 - (JSObject)toJSON
 {
     return {'type' : CPStringFromClass([self class]),

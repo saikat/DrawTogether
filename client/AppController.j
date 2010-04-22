@@ -31,6 +31,15 @@
     if (!data.action)
         return;
 
+    if (data.action === 'move')
+    {
+        var widgetToMove = [canvas widgetByJSObject:{'type' : data.widget.type,
+                                                     'frame' : CGRectMake(data.startOrigin.x,
+                                                                          data.startOrigin.y,
+                                                                          data.widget.frame.size.width,
+                                                                          data.widget.frame.size.height)}];
+        [widgetToMove setFrameOrigin:data.widget.frame.origin];
+    }
     if (data.action === 'fetch')
     {
         [[SCSocket sharedSocket] sendMessage:[canvas toJSON]];
