@@ -1,12 +1,12 @@
 Introduction
 ============
 
-This application makes use of [Socket.IO](http://github.com/RosePad/Socket.IO) and [Cappuccino](http://github.com/280north/cappuccino) to create a sample collaborative drawing app.  Multiple users can draw rectangles and circles and all other users using the app see the changes.  Socket.IO automatically allows the application to use WebSockets when it can, falling back to other Comet methods for other browsers.  To read more about Socket.IO, check out the [client](http://github.com/rosepad/socket.io) and [server](http://github.com/rosepad/socket.io-node).  You can read more about it (and see a demo) [here](http://techblog.gomockingbird.com/socket-to-em).
+This application makes use of [Socket.IO](http://github.com/LearnBoost/Socket.IO) and [Cappuccino](http://github.com/280north/cappuccino) to create a sample collaborative drawing app.  Multiple users can draw rectangles and circles and all other users using the app see the changes.  Socket.IO automatically allows the application to use WebSockets when it can, falling back to other Comet methods for other browsers.  To read more about Socket.IO, check out the [client](http://github.com/LearnBoost/socket.io) and [server](http://github.com/LearnBoost/socket.io-node).  You can read more about it (and see a demo) [here](http://techblog.gomockingbird.com/socket-to-em).
 
 Requirements
 ============
 
-To run this example, you need to install [Socket.IO-node](http://github.com/rosepad/socket.io-node), which depends on [Node.js](http://github.com/ry/node).  Socket.IO-node currently requires you to patch your Node installation - this should hopefully go away in the future.  
+To run this example, you need to install [Socket.IO-node](http://github.com/LearnBoost/socket.io-node), which depends on [Node.js](http://github.com/ry/node).  Socket.IO-node currently requires you to patch your Node installation - this should hopefully go away in the future.  
 
 Instructions to Run
 ===================
