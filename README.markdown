@@ -6,7 +6,7 @@ This application makes use of [Socket.IO](http://github.com/LearnBoost/Socket.IO
 Requirements
 ============
 
-To run this example, you need to install [Node.js](http://github.com/ry/node).  Make sure you clone this repository with git clone --recursive to get the socket.io submodule.
+To run this example, you need to install [Node.js](http://github.com/ry/node).  Also, make sure you clone the DrawTogether repository with git clone --recursive to get the socket.io submodule.
 
 Instructions to Run
 ===================
