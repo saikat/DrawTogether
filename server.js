@@ -9,22 +9,22 @@
  */
 
 var http = require('http'), 
-    url = require('url'),
-    fs = require('fs'),
-    io = require('./lib/socket.io/socket.io'),
-    sys = require('sys'),
-    paperboy = require('./lib/paperboy/paperboy'),
-    
-    send404 = function(res){
-	res.writeHead(404);
-	res.write('404');
-	res.close();
-    },
+url = require('url'),
+fs = require('fs'),
+io = require('./lib/socket.io'),
+sys = require('sys'),
+paperboy = require('./lib/paperboy/paperboy'),
 
-    /* This is copied exactly from the examply in node-paperboy - http://github.com/felixge/node-paperboy */
-    server = http.createServer(function(req, res) {
-	var ip = req.connection.remoteAddress;
-	paperboy
+send404 = function(res){
+    res.writeHead(404);
+    res.write('404');
+    res.close();
+},
+
+/* This is copied exactly from the examply in node-paperboy - http://github.com/felixge/node-paperboy */
+server = http.createServer(function(req, res) {
+    var ip = req.connection.remoteAddress;
+    paperboy
 	.deliver(__dirname, req, res)
 	.addHeader('Expires', 300)
 	.addHeader('X-PaperRoute', 'Node')
@@ -46,46 +46,33 @@ var http = require('http'),
 	    res.writeHead(statCode, {'Content-Type': 'text/plain'});
 	    log(statCode, req.url, ip, err);
 	});
-    });
-    server.listen(8080);
+});
+server.listen(8080);
 
-    function log(statCode, url, ip,err) {
-	var logStr = statCode + ' - ' + url + ' - ' + ip
-	if (err)
-	    logStr += ' - ' + err;
-	sys.log(logStr);
-    }
-    /* End paperboy example */
-    
-    var json = JSON.stringify;
+function log(statCode, url, ip,err) {
+    var logStr = statCode + ' - ' + url + ' - ' + ip
+    if (err)
+	logStr += ' - ' + err;
+    sys.log(logStr);
+}
+/* End paperboy example */
 
-    var listener = io.listen(server, {	
-	onClientDisconnect: function(client)
-	{
-	},
-	
-	onClientMessage: function(message, client)
-	{
-	    client.broadcast(message);
+var json = JSON.stringify;
+
+var listener = io.listen(server);
+
+listener.on('connection', function(client) {
+    if (listener.clients.length > 0) {
+	var count = listener.clients.length;
+	while (count--) {
+	    if (listener.clients[count] != null && this.clients[count] != client) {
+		listener.clients[count].send(json({ action: 'fetch' }));
+		return;
+	    }
 	}
+    }
+    
+    client.on('message', function(message) {
+	client.broadcast(message);
     });
-
-    listener.addListener('clientConnect', function(client)
-			 {
-			     // This code to sync up clients when a new client connects clearly
-			     // doesn't actually work that well.  I need to deal with client
-			     // synchronization and merging - this is the hard part =)
-			     if (this.clients.length > 0)
-			     {
-				 var count = this.clients.length;
-				 while (count--)
-				 {
-				     if (this.clients[count] != null && this.clients[count] != client)
-				     {
-					 this.clients[count].send(json({ action: 'fetch' }));
-					 return;
-				     }
-				 }
-			     }
-			 });
-    listener.options.transports = ['websocket', 'server-events', 'htmlfile', 'xhr-multipart', 'xhr-polling'];
+});
